@@ -31,9 +31,26 @@ services:
       - key: PYTHON_AGENTS_PATH
         value: python-agents/main.py
       - key: EVAL_SERVICE_URL
-        value: http://localhost:8000
+        value: https://evalops-eval-service.onrender.com
       - key: FRONTEND_URL
         sync: false
+
+  - type: web
+    name: evalops-eval-service
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r eval-service/requirements.txt
+    startCommand: cd eval-service && uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: AZURE_OPENAI_API_KEY
+        sync: false
+      - key: AZURE_OPENAI_ENDPOINT
+        sync: false
+      - key: AZURE_OPENAI_DEPLOYMENT_NAME
+        sync: false
+      - key: AZURE_OPENAI_API_VERSION
+        value: "2024-02-01"
 
   - type: worker
     name: evalops-worker
@@ -64,3 +81,5 @@ services:
         value: python3
       - key: PYTHON_AGENTS_PATH
         value: python-agents/main.py
+      - key: EVAL_SERVICE_URL
+        value: https://evalops-eval-service.onrender.com
