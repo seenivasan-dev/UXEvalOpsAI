@@ -18,7 +18,7 @@ class TelemetryService {
     metadata: Record<string, unknown>
   ): Promise<void> {
     await prisma.telemetryEvent.create({
-      data: { evaluationId, event, metadata },
+      data: { evaluationId, event, metadata: metadata as object },
     })
     logger.info({ evaluationId, event, metadata, msg: 'telemetry event tracked' })
   }
