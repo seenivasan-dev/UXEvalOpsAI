@@ -1,0 +1,126 @@
+<mxfile host="app.diagrams.net" version="21.0.0" type="github">
+  <diagram id="agent-pipeline" name="AI Agent Pipeline">
+    <mxGraphModel dx="1100" dy="800" grid="0" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="860" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ── TITLE ─────────────────────────────────────────────────────── -->
+        <mxCell id="title" value="UXEvalOpsAI — AI Agent Pipeline" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1e293b;" vertex="1" parent="1">
+          <mxGeometry x="200" y="16" width="700" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- ── INPUT ─────────────────────────────────────────────────────── -->
+        <mxCell id="input" value="&lt;b&gt;BullMQ Worker&lt;/b&gt;&lt;br/&gt;Dequeues job from Redis&lt;br/&gt;{jobId, imageBase64}" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="68" width="340" height="72" as="geometry" />
+        </mxCell>
+
+        <!-- ── COORDINATOR ────────────────────────────────────────────────── -->
+        <mxCell id="z-coord" value="" style="rounded=1;whiteSpace=wrap;fillColor=#FFD966;strokeColor=#d79b00;opacity=50;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="250" y="194" width="600" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="z-coord-lbl" value="PATTERN: Orchestrator" style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;fontStyle=3;fontSize=10;fontColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="262" y="198" width="180" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="coord" value="&lt;b&gt;coordinator.py&lt;/b&gt;&lt;br/&gt;asyncio.gather(return_exceptions=True)&lt;br/&gt;Fan-out to 4 specialist agents concurrently" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFD966;strokeColor=#d79b00;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="214" width="540" height="66" as="geometry" />
+        </mxCell>
+
+        <!-- ── PARALLELIZATION LABEL ──────────────────────────────────────── -->
+        <mxCell id="par-lbl" value="PATTERN: Parallelization — all 4 run at the same time via asyncio.gather()" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=#ffe6cc;rounded=1;fontStyle=2;fontSize=11;fontColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="200" y="322" width="700" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- ── 4 AGENTS ──────────────────────────────────────────────────── -->
+        <mxCell id="a-vh" value="&lt;b&gt;Visual Hierarchy Agent&lt;/b&gt;&lt;br/&gt;Layout · info architecture&lt;br/&gt;WCAG landmark structure&lt;br/&gt;&lt;br/&gt;score 0–100 → JSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="360" width="200" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="a-ac" value="&lt;b&gt;Accessibility Agent&lt;/b&gt;&lt;br/&gt;WCAG 2.1 AA audit&lt;br/&gt;contrast · targets · focus&lt;br/&gt;&lt;br/&gt;&lt;b&gt;♻ REFLECTION: 2-pass&lt;/b&gt;&lt;br/&gt;Pass 1 → Pass 2 self-critique" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;shadow=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="290" y="360" width="200" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="a-ct" value="&lt;b&gt;Copy &amp; Tone Agent&lt;/b&gt;&lt;br/&gt;Microcopy · CTAs&lt;br/&gt;Error messages · tone&lt;br/&gt;&lt;br/&gt;score 0–100 → JSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="360" width="200" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="a-dc" value="&lt;b&gt;Design Consistency Agent&lt;/b&gt;&lt;br/&gt;Design tokens · brand&lt;br/&gt;spacing · color palette&lt;br/&gt;&lt;br/&gt;score 0–100 → JSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="360" width="200" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- ── TOOL USE → WEIGHTED SCORE ─────────────────────────────────── -->
+        <mxCell id="z-tool" value="" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;opacity=50;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="200" y="518" width="700" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="z-tool-lbl" value="PATTERN: Tool Use — deterministic function, not the LLM, computes scores" style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;fontStyle=3;fontSize=10;fontColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="212" y="524" width="500" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="tool" value="&lt;b&gt;@tool calculate_weighted_score()&lt;/b&gt;&lt;br/&gt;Accessibility×35% + Consistency×25% + Visual×20% + Copy×20%  →  overallScore + grade" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="542" width="640" height="56" as="geometry" />
+        </mxCell>
+
+        <!-- ── SYNTHESIS ──────────────────────────────────────────────────── -->
+        <mxCell id="z-synth" value="" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;opacity=50;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="200" y="652" width="700" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="z-synth-lbl" value="PATTERN: Orchestrator-Synthesis — all specialist outputs funnelled into one holistic narrative" style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;fontStyle=3;fontSize=10;fontColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="212" y="656" width="600" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="synth" value="&lt;b&gt;synthesis.py — GPT-4o (Senior UX Lead role)&lt;/b&gt;&lt;br/&gt;Receives: 4 agent JSON reports + weighted score calculation&lt;br/&gt;Produces: topIssues[3] + 2–3 sentence executive summary + grade" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="674" width="640" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- ── OUTPUT ─────────────────────────────────────────────────────── -->
+        <mxCell id="output" value="&lt;b&gt;JSON Report (stdout)&lt;/b&gt;&lt;br/&gt;{overallScore, grade, topIssues[], summary, agents[], durationSeconds}&lt;br/&gt;Worker persists to Neon DB · calls Eval Service · updates status=completed" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="790" width="540" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ── EDGES ─────────────────────────────────────────────────────── -->
+
+        <!-- Input → Coordinator -->
+        <mxCell id="e1" value="spawn process&lt;br/&gt;stdin: imageBase64" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="input" target="coord" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Coordinator → 4 agents -->
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.15;exitY=1;entryX=0.5;entryY=0;" edge="1" source="coord" target="a-vh" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.38;exitY=1;entryX=0.5;entryY=0;" edge="1" source="coord" target="a-ac" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.62;exitY=1;entryX=0.5;entryY=0;" edge="1" source="coord" target="a-ct" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.85;exitY=1;entryX=0.5;entryY=0;" edge="1" source="coord" target="a-dc" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 4 agents → Tool (weighted score) -->
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.5;exitY=1;entryX=0.15;entryY=0;" edge="1" source="a-vh" target="tool" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.5;exitY=1;entryX=0.35;entryY=0;" edge="1" source="a-ac" target="tool" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.5;exitY=1;entryX=0.65;entryY=0;" edge="1" source="a-ct" target="tool" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.5;exitY=1;entryX=0.85;entryY=0;" edge="1" source="a-dc" target="tool" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Tool → Synthesis -->
+        <mxCell id="e10" value="scores + agent findings" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="tool" target="synth" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Synthesis → Output -->
+        <mxCell id="e11" value="JSON via stdout" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="synth" target="output" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

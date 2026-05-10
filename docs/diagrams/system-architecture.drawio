@@ -1,0 +1,167 @@
+<mxfile host="app.diagrams.net" version="21.0.0" type="github">
+  <diagram id="sys-arch" name="UXEvalOpsAI System Architecture">
+    <mxGraphModel dx="1400" dy="900" grid="0" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1400" pageHeight="920" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ── TITLE ─────────────────────────────────────────────────────── -->
+        <mxCell id="title" value="UXEvalOpsAI — System Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1e293b;" vertex="1" parent="1">
+          <mxGeometry x="300" y="16" width="800" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- ── USER ──────────────────────────────────────────────────────── -->
+        <mxCell id="user" value="&lt;b&gt;User&lt;/b&gt;&lt;br/&gt;Browser" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#555555;fontColor=#1e293b;fontSize=13;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="62" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ── VERCEL ZONE ─────────────────────────────────────────────── -->
+        <mxCell id="z-vercel" value="" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;opacity=40;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="370" y="158" width="620" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="z-vercel-lbl" value="☁  Vercel — Global CDN" style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;fontStyle=1;fontSize=11;fontColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="382" y="164" width="220" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="frontend" value="&lt;b&gt;Frontend SPA&lt;/b&gt;&lt;br/&gt;Lit Web Components · Vite · TailwindCSS&lt;br/&gt;SPA routing (vercel.json)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="188" width="500" height="66" as="geometry" />
+        </mxCell>
+
+        <!-- ── RENDER ZONE ─────────────────────────────────────────────── -->
+        <mxCell id="z-render" value="" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;opacity=40;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="100" y="316" width="1160" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="z-render-lbl" value="☁  Render — Web Services" style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;fontStyle=1;fontSize=11;fontColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="112" y="322" width="220" height="18" as="geometry" />
+        </mxCell>
+
+        <mxCell id="backend" value="&lt;b&gt;evalops-backend&lt;/b&gt; (web service)&lt;br/&gt;Express REST API&lt;br/&gt;BullMQ Worker (co-located)&lt;br/&gt;Node.js 20 · TypeScript" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;shadow=1;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="346" width="310" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="evalservice" value="&lt;b&gt;evalops-eval-service&lt;/b&gt; (web service)&lt;br/&gt;FastAPI · Python 3.11 · Uvicorn&lt;br/&gt;POST /evaluate (completeness,&lt;br/&gt;schema compliance, drift detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="346" width="400" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- ── PYTHON AGENTS ZONE ─────────────────────────────────────── -->
+        <mxCell id="z-agents" value="" style="rounded=1;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;opacity=40;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="100" y="536" width="780" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="z-agents-lbl" value="🤖  Python Agent Pipeline  (child_process.spawn — subprocess of evalops-backend)" style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;fontStyle=1;fontSize=11;fontColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="112" y="542" width="620" height="18" as="geometry" />
+        </mxCell>
+
+        <mxCell id="coord" value="&lt;b&gt;coordinator.py&lt;/b&gt;&lt;br/&gt;Orchestrator&lt;br/&gt;asyncio.gather()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFD966;strokeColor=#d79b00;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="572" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="a-vh" value="Visual Hierarchy&lt;br/&gt;Agent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="340" y="562" width="148" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="a-ac" value="Accessibility Agent&lt;br/&gt;&lt;i&gt;♻ Reflection (2-pass)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="500" y="562" width="148" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="a-ct" value="Copy &amp; Tone&lt;br/&gt;Agent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="340" y="626" width="148" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="a-dc" value="Design Consistency&lt;br/&gt;Agent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="500" y="626" width="148" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="synth" value="&lt;b&gt;synthesis.py&lt;/b&gt;&lt;br/&gt;@tool weighted_score()&lt;br/&gt;GPT-4o executive summary&lt;br/&gt;topIssues + grade" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0a30a;strokeColor=#d79b00;fontSize=11;fontColor=#1e293b;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="668" y="572" width="188" height="96" as="geometry" />
+        </mxCell>
+
+        <!-- ── DATA SERVICES ZONE ────────────────────────────────────── -->
+        <mxCell id="z-data" value="" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;opacity=40;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="900" y="536" width="360" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="z-data-lbl" value="💾  Cloud Data Services" style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;fontStyle=1;fontSize=11;fontColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="912" y="542" width="200" height="18" as="geometry" />
+        </mxCell>
+
+        <mxCell id="neon" value="&lt;b&gt;Neon (PostgreSQL)&lt;/b&gt;&lt;br/&gt;Serverless Postgres&lt;br/&gt;Prisma ORM + Migrations&lt;br/&gt;Pooler + Direct URL" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="920" y="566" width="150" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="redis" value="&lt;b&gt;Upstash (Redis)&lt;/b&gt;&lt;br/&gt;Serverless Redis&lt;br/&gt;BullMQ Job Queue&lt;br/&gt;3× retry + backoff" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="566" width="150" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="azureoai" value="&lt;b&gt;Azure OpenAI&lt;/b&gt;&lt;br/&gt;GPT-4o (Vision)&lt;br/&gt;LLM Inference" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#0078D4;fontSize=12;shadow=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="960" y="680" width="200" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ── EDGES ─────────────────────────────────────────────────── -->
+
+        <!-- User → Frontend -->
+        <mxCell id="e1" value="drops screenshot" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="user" target="frontend" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Frontend ↔ Backend (REST + polling) -->
+        <mxCell id="e2" value="POST /api/evaluations/upload&lt;br/&gt;GET /api/evaluations/:id (2s poll)&lt;br/&gt;HTTPS · CORS-guarded" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;" edge="1" source="frontend" target="backend" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Backend → Eval Service -->
+        <mxCell id="e3" value="POST /evaluate" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="backend" target="evalservice" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Backend ↔ Neon -->
+        <mxCell id="e4" value="Prisma ORM" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" source="backend" target="neon" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Backend ↔ Redis -->
+        <mxCell id="e5" value="BullMQ enqueue / consume" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" source="backend" target="redis" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Backend → Coordinator (spawn) -->
+        <mxCell id="e6" value="child_process.spawn&lt;br/&gt;stdin: base64 image JSON" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="backend" target="coord" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Coordinator → 4 agents (asyncio.gather) -->
+        <mxCell id="e7" value="asyncio.gather" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="coord" target="a-vh" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="coord" target="a-ac" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="coord" target="a-ct" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="coord" target="a-dc" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Agents → Synthesis -->
+        <mxCell id="e11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="a-vh" target="synth" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="a-ac" target="synth" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="a-ct" target="synth" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="a-dc" target="synth" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Synthesis → Backend (JSON stdout) -->
+        <mxCell id="e15" value="JSON report via stdout" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" source="synth" target="backend" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Python Agents → Azure OpenAI (LLM calls) -->
+        <mxCell id="e16" value="LangChain Vision API calls" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="a-ac" target="azureoai" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
