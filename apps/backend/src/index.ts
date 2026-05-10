@@ -8,6 +8,7 @@ import { requestLogger, logger } from './middleware/logger'
 import { errorHandler } from './middleware/errorHandler'
 import evaluationsRouter from './routes/evaluations'
 import reviewsRouter from './routes/reviews'
+import './jobs/worker'
 
 const app = express()
 
