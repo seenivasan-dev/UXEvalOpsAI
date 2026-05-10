@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model EvaluationJob {
+  id              String           @id @default(cuid())
+  status          String           @default("pending")
+  imageFileName   String
+  imageBase64     String           @db.Text
+  overallScore    Int?
+  grade           String?
+  summary         String?          @db.Text
+  topIssues       String[]
+  durationSeconds Float?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  agentResults    AgentResult[]
+  reviews         Review[]
+  telemetry       TelemetryEvent[]
+  evalScores      EvalScore[]
+}
+
+model AgentResult {
+  id             String        @id @default(cuid())
+  evaluationId   String
+  agentName      String
+  score          Int
+  status         String
+  findings       Json
+  recommendation String        @db.Text
+  reflected      Boolean       @default(false)
+  durationMs     Int?
+  createdAt      DateTime      @default(now())
+  evaluation     EvaluationJob @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id           String        @id @default(cuid())
+  evaluationId String
+  agentName    String
+  action       String
+  comment      String?       @db.Text
+  reviewedAt   DateTime      @default(now())
+  evaluation   EvaluationJob @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+}
+
+model TelemetryEvent {
+  id           String        @id @default(cuid())
+  evaluationId String
+  event        String
+  metadata     Json
+  timestamp    DateTime      @default(now())
+  evaluation   EvaluationJob @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+}
+
+model EvalScore {
+  id               String        @id @default(cuid())
+  evaluationId     String
+  completeness     Float
+  schemaCompliance Float
+  humanAgreement   Float?
+  driftFlag        Boolean       @default(false)
+  createdAt        DateTime      @default(now())
+  evaluation       EvaluationJob @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+}

@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+/* Ensure custom elements display as block by default */
+app-shell,
+page-dashboard,
+page-evaluate,
+page-history,
+page-review-queue {
+  display: block;
+}

@@ -1,0 +1,67 @@
+services:
+  - type: web
+    name: evalops-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: |
+      pip3 install -r python-agents/requirements.txt &&
+      pip3 install -r eval-service/requirements.txt &&
+      npm install &&
+      npm run build --workspace=apps/backend &&
+      npx prisma generate --schema=apps/backend/prisma/schema.prisma &&
+      npx prisma migrate deploy --schema=apps/backend/prisma/schema.prisma
+    startCommand: node apps/backend/dist/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: AZURE_OPENAI_API_KEY
+        sync: false
+      - key: AZURE_OPENAI_ENDPOINT
+        sync: false
+      - key: AZURE_OPENAI_DEPLOYMENT_NAME
+        sync: false
+      - key: AZURE_OPENAI_API_VERSION
+        value: "2024-02-01"
+      - key: PYTHON_PATH
+        value: python3
+      - key: PYTHON_AGENTS_PATH
+        value: python-agents/main.py
+      - key: EVAL_SERVICE_URL
+        value: http://localhost:8000
+      - key: FRONTEND_URL
+        sync: false
+
+  - type: worker
+    name: evalops-worker
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: |
+      pip3 install -r python-agents/requirements.txt &&
+      npm install &&
+      npx prisma generate --schema=apps/backend/prisma/schema.prisma
+    startCommand: node -e "require('./apps/backend/dist/jobs/worker')"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: AZURE_OPENAI_API_KEY
+        sync: false
+      - key: AZURE_OPENAI_ENDPOINT
+        sync: false
+      - key: AZURE_OPENAI_DEPLOYMENT_NAME
+        sync: false
+      - key: AZURE_OPENAI_API_VERSION
+        value: "2024-02-01"
+      - key: PYTHON_PATH
+        value: python3
+      - key: PYTHON_AGENTS_PATH
+        value: python-agents/main.py

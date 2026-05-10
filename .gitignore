@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+*.env.local
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+prisma/migrations/dev/
+*.log
+.python-version
