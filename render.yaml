@@ -7,9 +7,8 @@ services:
     buildCommand: |
       pip3 install -r python-agents/requirements.txt &&
       pip3 install -r eval-service/requirements.txt &&
-      npm install &&
+      npm install --include=dev &&
       npm run build --workspace=apps/backend &&
-      npx prisma generate --schema=apps/backend/prisma/schema.prisma &&
       npx prisma migrate deploy --schema=apps/backend/prisma/schema.prisma
     startCommand: node apps/backend/dist/index.js
     envVars:
@@ -43,7 +42,7 @@ services:
     plan: free
     buildCommand: |
       pip3 install -r python-agents/requirements.txt &&
-      npm install &&
+      npm install --include=dev &&
       npx prisma generate --schema=apps/backend/prisma/schema.prisma
     startCommand: node -e "require('./apps/backend/dist/jobs/worker')"
     envVars:
