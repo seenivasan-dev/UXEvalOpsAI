@@ -4,7 +4,7 @@ Accessibility Agent — AI Pattern: REFLECTION (2-pass self-critique)
 Pass 1: Initial accessibility audit
 Pass 2: Reflection chain critiques Pass 1 and produces improved output
 
-This implements the Reflection agent pattern for interview demonstration.
+This implements the Reflection agent pattern for demonstration.
 """
 import time
 import json

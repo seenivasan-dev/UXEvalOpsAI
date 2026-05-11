@@ -24,7 +24,7 @@
 9. [Tech Stack](#9-tech-stack)
 10. [Environment Variables](#10-environment-variables)
 11. [Local Development](#11-local-development)
-12. [Key Interview Concepts](#12-key-interview-concepts)
+12. [Key Concepts](#12-key-concepts)
 
 ---
 
@@ -559,7 +559,7 @@ Open [http://localhost:5173](http://localhost:5173)
 
 ---
 
-## 12. Key Interview Concepts
+## 12. Key Concepts
 
 ### Async Job Queue (BullMQ + Redis)
 
